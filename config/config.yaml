@@ -1,7 +1,0 @@
-artifact_root: artifacts
-
-data_ingestion:
-  dir: artifacts/data_ingestion
-  raw: artifacts/data_ingestion/raw.csv
-  train_data: artifacts/data_ingestion/train.csv
-  test_data: artifacts/data_ingestion/test.csv

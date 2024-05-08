@@ -16,7 +16,7 @@ def get_requirements(file_path:str)->[List]:
 
 setup(
     name='Cement-Strength-Prediction',
-    version='0.1',
+    version='0.2',
     author='Arpan Chakraborty23',
     author_email='Arpanchakraborty500@gmail.com',
     url='https:\\github.com\{author}\{name}.git',

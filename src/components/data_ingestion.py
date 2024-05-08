@@ -12,53 +12,43 @@ from src.utils.utils import read_yaml,create_dir
 
 @dataclass
 class DataIngestionConfig:
-   dir:Path
-   raw:Path
-   train_data:Path
-   test_data: Path
+  
+   raw_data:Path=os.path.join('artifacts/raw.csv')
+   train_data:Path=os.path.join('artifacts/train.csv')
+   test_data: Path=os.path.join('artifacts/test.csv')
 
 class DataIngestion:
-   def __init__(self,config=config_file_path):
-      self.config=read_yaml(config)
+   def __init__(self) -> None:
+        self.data_ingestion_config=DataIngestionConfig()
 
-      create_dir([self.config.artifacts_root])
-
-      config=self.config.data_ingestion
-
-      self.config_manager=DataIngestionConfig(
-         dir=config.dir,
-         raw=config.raw,
-         test_data=config.test_data,
-         train_data=config.train_data
-      )
-      return self.config_manager
-   
    def initate_data_ingestion(self):
+      try:
+         logging.info('Data ingestion has started')
 
-    try:
-        logging.info('data_ingestion has started')
-        df=pd.read_csv('NoteBook\data.csv')
-        print(df.head())
-        
-        df.to_csv(self.config_manager.raw)
+         df=pd.read_csv('NoteBook/data.csv')
 
-        train_data,test_data=train_test_split(df,test_size=0.3,random_state=42)
+         # os.makedirs(
+         #         os.path.dirname(self.data_ingestion_config.raw_data), exist_ok=True
+         #    )
 
-        train_data.to_csv(self.config_manager.train_data)
+         # df.to_csv(self.data_ingestion_config.raw_data)
 
-        test_data=test_data.to_csv(self.config_manager.test_data)
+         train_data,test_data=train_test_split(df,test_size=0.29,random_state=40)
 
-        return (
-           self.config_manager.train_data,
-           self.config_manager.test_data
-        )
+         train_data.to_csv(self.data_ingestion_config.train_data,header=True,index=False)
+         test_data.to_csv(self.data_ingestion_config.test_data,header=True,index=False)
 
+         print(train_data.head())
 
-    except Exception as e:
-        logging.info('Error',str(e))
-        raise CustomException(sys,e)
+         logging.info('data Ingestion competed')
+         return(
+            self.data_ingestion_config.train_data,
+            self.data_ingestion_config.test_data
+         )
+
+      except Exception as e:
+         logging.info(f'Error occured {str(e)}')
+         CustomException(sys,e)
     
-if __name__=='__main__':
-   obj=DataIngestion()
-   train_data,test_data=obj.initate_data_ingestion()
+
       

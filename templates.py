@@ -5,7 +5,7 @@ import logging
 list_of_files = [
     '.github/.gitkeeep',
     '.gitignore',
-    'config/config.yaml',
+ 
     'NoteBook/Eda.ipynb',
     'src/components/__init__.py',
     'src/constant/__init__.py',
