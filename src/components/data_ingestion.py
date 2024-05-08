@@ -4,10 +4,10 @@ from dataclasses import dataclass
 from pathlib import Path
 from sklearn.model_selection import train_test_split
 
-from src.constant.ymal_path import *
+
 from src.logging.logger import logging
 from src.exception.exception import CustomException
-from src.utils.utils import read_yaml,create_dir
+
 
 
 @dataclass
@@ -23,7 +23,7 @@ class DataIngestion:
 
    def initate_data_ingestion(self):
       try:
-         logging.info('Data ingestion has started')
+         logging.info('=================== Data ingestion =================')
 
          df=pd.read_csv('NoteBook/data.csv')
 
@@ -40,7 +40,7 @@ class DataIngestion:
 
          print(train_data.head())
 
-         logging.info('data Ingestion competed')
+         logging.info('================Data Ingestion competed================')
          return(
             self.data_ingestion_config.train_data,
             self.data_ingestion_config.test_data
