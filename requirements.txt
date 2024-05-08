@@ -1,0 +1,13 @@
+pandas
+numpy
+scikit-learn
+flask
+streamlit
+seaborn
+matplotlib
+dvc
+pymysql
+bentoml
+python-dotenv
+ipykernel
+-e .
