@@ -1,7 +1,7 @@
 import os,sys
 import pandas as pd
 import numpy as np
-from sklearn.preprocessing import RobustScaler
+from sklearn.preprocessing import RobustScaler,StandardScaler
 from sklearn.pipeline import Pipeline
 from dataclasses import dataclass
 
@@ -20,7 +20,7 @@ class DataTransformation:
     def get_transformation_obj(self):
         preprocess_obj=Pipeline(
             steps=[
-                ('RobustScaler',RobustScaler())
+                ('Scaler',StandardScaler())
             ]
         )
         return preprocess_obj

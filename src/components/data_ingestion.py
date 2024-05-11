@@ -33,6 +33,11 @@ class DataIngestion:
 
          # df.to_csv(self.data_ingestion_config.raw_data)
 
+         logging.info(f'data loaded {df.head()}')
+         logging.info(f' {df.info()}')
+         logging.info(f'{df.columns}')
+         logging.info(f'{df.describe()}')
+
          train_data,test_data=train_test_split(df,test_size=0.29,random_state=40)
 
          train_data.to_csv(self.data_ingestion_config.train_data,header=True,index=False)

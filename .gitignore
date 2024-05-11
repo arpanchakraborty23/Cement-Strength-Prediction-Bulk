@@ -9,7 +9,7 @@ __pycache__/
 
 # Distribution / packaging
 cement
-artifacts
+
 .Python
 build/
 develop-eggs/
