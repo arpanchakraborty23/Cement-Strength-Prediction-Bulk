@@ -5,11 +5,26 @@ from src.components.data_ingestion import DataIngestion
 from src.components.data_transformation import DataTransformation
 from src.components.model_train import ModelTrain
 
-obj=DataIngestion()
-train_data,test_data=obj.initate_data_ingestion()
+class TrainPipeline:
+    def __init__(self) -> None:
+         pass
+    def pipline(self):
+         try:
+              logging.info('**************** TrainPipline *****************')
+              data_ingestion=DataIngestion()
+              data_ingestion.initate_data_ingestion()
 
-obj=DataTransformation()
-train_arr,test_arr=obj.initate_data_transformation(train_data=train_data,test_data=test_data)
+              data_transformation=DataTransformation()
+              data_transformation.initate_data_transformation()
 
-obj=ModelTrain()
-print(obj.initate_model_train(train_arr,test_arr))
+              model_train=ModelTrain()
+              model_train.initate_model_train()
+
+              logging.info('**************** TrainPipline Completed *****************')
+         except Exception as e:
+              logging.info(f' Errror occured {str(e)}')
+              raise CustomException(sys,e)
+         
+if __name__=='__main__':
+     obj=TrainPipeline()
+     obj.pipline()

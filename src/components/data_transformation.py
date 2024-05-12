@@ -12,6 +12,12 @@ from src.utils.utils import save_obj
 @dataclass
 class DataTransformationConfig:
     preprocess_obj=os.path.join('preprocess/preprocess.pkl')
+    train_data=os.path.join('artifacts/train.csv')
+    test_data=os.path.join('artifacts/test.csv')
+    train_arr=os.path.join('artifacts/train_arr.npy')
+    test_arr=os.path.join('artifacts/test_arr.npy')
+
+
 
 class DataTransformation:
     def __init__(self) -> None:
@@ -25,12 +31,12 @@ class DataTransformation:
         )
         return preprocess_obj
 
-    def initate_data_transformation(self,train_data,test_data):
+    def initate_data_transformation(self):
         try:
             logging.info('============== Data Transformation ============== ')
 
-            train_data=pd.read_csv(train_data)
-            test_data=pd.read_csv(test_data)
+            train_data=pd.read_csv(self.data_transformation_config.train_data)
+            test_data=pd.read_csv(self.data_transformation_config.test_data)
 
             Traget_col='concrete_compressive_strength'
 
@@ -49,7 +55,10 @@ class DataTransformation:
 
             train_arr=np.c_[transform_input_feature_train_data,np.array(target_feature_train_data)]
 
-            test_arr=np.c_[input_feature_test_data,np.array(target_feature_test_data)]
+            test_arr=np.c_[transform_input_feature_test_data,np.array(target_feature_test_data)]
+
+            np.save(self.data_transformation_config.train_arr,train_arr)
+            np.save(self.data_transformation_config.test_arr,test_arr)
 
             save_obj(
                 file_path=self.data_transformation_config.preprocess_obj,

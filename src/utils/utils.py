@@ -36,8 +36,8 @@ def model_evaluate(x_train, y_train, x_test, y_test, models,params):
             gs=GridSearchCV(model,param_grid=para,cv=5,verbose=3,refit=True,scoring='neg_mean_squared_error',n_jobs=-1)
 
             
-            model.fit(x_train,y_train)
-            y_pred=model.predict(x_test)
+            gs.fit(x_train,y_train)
+            y_pred=gs.predict(x_test)
             
             accuracy=r2_score(y_test,y_pred)
             # Calculate mean absolute error
@@ -51,6 +51,7 @@ def model_evaluate(x_train, y_train, x_test, y_test, models,params):
                 f'Accuracy: {accuracy:.2f}%  MAE: {mae:.2f}%  MSE: {mse:.2f}%'   
             ]
             sns.regplot(x=y_test,y=y_pred,ci=None,color='indianred')
+           
             plt.title([list(models.keys())[i]] )
             plt.show()
         return report

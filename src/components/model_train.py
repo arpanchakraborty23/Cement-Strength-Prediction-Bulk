@@ -21,9 +21,11 @@ class ModelTrain:
     def __init__(self) -> None:
         self.config=ModelTrainConfig()
 
-    def initate_model_train(self,train_array,test_array):
+    def initate_model_train(self):
         try:
             logging.info('===================== Model Train =====================')
+            train_array=np.load('artifacts/train_arr.npy')
+            test_array=np.load('artifacts/test_arr.npy')
 
             print(train_array)
         
@@ -69,13 +71,13 @@ class ModelTrain:
                     'fit_intercept': [True, False]
                 },
                 'ElasticNet': {
-                     'alpha': [0.6, 0.5, 0.4],            # Regularization strength
-                     'l1_ratio': [0.4, 0.5, 0.14],        # L1 ratio (0 for L2 penalty, 1 for L1 penalty)
+                     'alpha': [0.6, 0.5, 0.4],            
+                     'l1_ratio': [0.4, 0.5, 0.14],        
                      'selection': ['cyclic', 'random']
                 },
                 'DecisionTreeRegressor':{
-                     'max_depth': [None, 5, 10, 15],  # Maximum depth of the tree
-                    'min_samples_split': [2, 5, 10],   # Minimum number of samples required to split a node
+                     'max_depth': [None, 5, 10, 15], 
+                    'min_samples_split': [2, 5, 10],   
                     'min_samples_leaf': [1, 2, 4] 
 
                 },
