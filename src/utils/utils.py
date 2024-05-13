@@ -21,9 +21,13 @@ def save_obj(file_path,obj):
             logging.info(f"Saved object in {file_path}")
 
 def load_obj(file_path):
-    with open(file_path,'rb') as f:
-            file=pickle.load(f)
-    return file
+    try:
+        with open(file_path,'rb') as file_obj:
+            return pickle.load(file_obj)
+
+       
+    except Exception as e:
+            raise CustomException(e,sys) from e
 
 def model_evaluate(x_train, y_train, x_test, y_test, models,params):
     try:
@@ -38,6 +42,9 @@ def model_evaluate(x_train, y_train, x_test, y_test, models,params):
             
             gs.fit(x_train,y_train)
             y_pred=gs.predict(x_test)
+
+            # model.fit(x_train,y_train)
+            # y_pred=model.predict(x_test)
             
             accuracy=r2_score(y_test,y_pred)
             # Calculate mean absolute error
